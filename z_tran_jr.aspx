@@ -76,6 +76,10 @@
                     },{
                         type : '1', //[19][20]
                         name : 'xinvono',
+                    },{
+                        type : '5', //[21]
+                        name : 'xsorting',
+                        value : ('0@聯單邊號,1@派車').split(',')
                     }]
                     });
                 q_popAssign();

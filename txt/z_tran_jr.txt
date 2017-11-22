@@ -8,6 +8,7 @@ declare @t_ecarno nvarchar(20) = case when '#non'=[9] then char(255) else [9] en
 declare @t_baddr nvarchar(20) = case when '#non'=[10] then '' else [10] end 
 declare @t_eaddr nvarchar(20) = case when '#non'=[11] then char(255) else [11] end
 declare @t_chk1 nvarchar(20) = case when '#non'=[16] then '' else [16] end
+declare @t_sorting nvarchar(20) = case when '#non'=[21] then '0' else [21] end
 
 declare @tmp table(
 	rr int,
@@ -66,15 +67,30 @@ from @tmp
 group by cno
 
 --2017/09/28 郭小姐 老闆要求不斷頁(列印自行下載xls分頁)
-select 
-dbo.getComma(weight,2) weight
-,dbo.getComma(weight2,2) weight2
-,dbo.getComma(total1,0) total1
-,dbo.getComma(total2,0) total2
-,dbo.getComma(price1,3) price1
-,dbo.getComma(price2,3) price2
-,* from @tmp
-order by cno,datea,custno,carno,po,noa,uccno,straddrno,gno
+if (@t_sorting='1')
+begin
+	select 
+	dbo.getComma(weight,2) weight
+	,dbo.getComma(weight2,2) weight2
+	,dbo.getComma(total1,0) total1
+	,dbo.getComma(total2,0) total2
+	,dbo.getComma(price1,3) price1
+	,dbo.getComma(price2,3) price2
+	,* from @tmp
+	order by cno,datea,custno,carno,noa,po,uccno,straddrno,gno
+end
+else
+begin
+	select 
+	dbo.getComma(weight,2) weight
+	,dbo.getComma(weight2,2) weight2
+	,dbo.getComma(total1,0) total1
+	,dbo.getComma(total2,0) total2
+	,dbo.getComma(price1,3) price1
+	,dbo.getComma(price2,3) price2
+	,* from @tmp
+	order by cno,datea,custno,carno,po,noa,uccno,straddrno,gno
+end
 ;
 ------------------------------------------------------------------------------------------------
 z_tran_jr2:--z_tran_jr2
