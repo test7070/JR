@@ -527,7 +527,7 @@
 
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtMount').val(FormatNumber(t_mount));    
+                $('#txtMount').val(FormatNumber(t_mount));   
                 $('#txtTax').val(round(FormatNumber((t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus))*0.05),0));
             }
             function refresh(recno) {
