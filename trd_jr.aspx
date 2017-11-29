@@ -285,7 +285,7 @@
                         if(q_getPara('sys.project').toUpperCase()=='NV'){
                             var as = _q_appendData("view_trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                            , as.length, as, 'datea,noa,noq,carno,straddr,total,caseno,weight,price,total,po,product', '','');
+                            , as.length, as, 'datea,noa,noq,carno,straddr,total,caseno,weight,custprice,total,po,product', '','');
                         }else{
                             var as = _q_appendData("view_trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'

@@ -19,7 +19,7 @@
             var q_readonly = ['txtNoa', 'txtMount', 'txtVolume', 'txtWeight','txtTotal','txtTotal2', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMount', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtWeight', 10, 3, 1],['txtWeight2', 10, 3, 1],['txtWeight3', 10, 3, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtTotal', 10, 2, 1],['txtTotal2', 10, 2, 1]];
+            var bbsNum = [['txtWeight', 10, 3, 1],['txtWeight2', 10, 3, 1],['txtWeight3', 10, 3, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [['txtDatea','999/99/99'],['textMon','999/99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -67,7 +67,7 @@
 					   $('#txtTotal2_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtMount3_'+i)),0)); 
 					}
 					if($('#txtPrice_'+i).val()!=1){
-                       $('#txtTotal_'+i).val(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i))); 
+                       $('#txtTotal_'+i).val(round(q_mul(q_float('txtWeight_'+i),q_float('txtPrice_'+i)),0)); 
                     }
 					t_total = round(q_add(t_total,q_float('txtTotal_'+i)),0);
 					t_total2 = round(q_add(t_total2,q_float('txtTotal2_'+i)),0);
