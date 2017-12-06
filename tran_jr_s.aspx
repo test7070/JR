@@ -43,6 +43,10 @@
 				$('#txtBtrandate').datepicker();
 				$('#txtEtrandate').datepicker(); 
 				$('#txtNoa').focus();
+				
+				if(q_getPara('sys.project').toUpperCase()=='SH'){
+                    $('.isSH').hide();
+                }
 			}
 
 			function q_seekStr() {
@@ -117,11 +121,11 @@
 					<td class='seek'  style="width:20%;"><a id='lblNoa'>電腦編號</a></td>
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblCno'>公司編號</a></td>
                     <td><input class="txt" id="txtCno" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
-                <tr class='seek_tr'>
+                <tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblAcomp'>公司名稱</a></td>
                     <td><input class="txt" id="txtAcomp" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
@@ -133,7 +137,7 @@
                     <td class='seek'  style="width:20%;"><a id='lblCust'>客戶名稱</a></td>
                     <td><input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
-                <tr class='seek_tr'>
+                <tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblVccano'>發票號碼</a></td>
                     <td><input class="txt" id="txtVccano" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
@@ -141,15 +145,15 @@
 					<td class='seek'  style="width:20%;"><a id='lblCarno'>車牌</a></td>
 					<td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblPo'>聯單號碼</a></td>
                     <td><input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
-                <tr class='seek_tr'>
+                <tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblStraddrno'>處理廠編號</a></td>
                     <td><input class="txt" id="txtStraddrno" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
-                <tr class='seek_tr'>
+                <tr class='seek_tr isSH'>
                     <td class='seek'  style="width:20%;"><a id='lblStraddr'>處理廠</a></td>
                     <td><input class="txt" id="txtStraddr" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
