@@ -75,7 +75,10 @@
                 $('#txtBdate').datepicker();
                 $('#txtEdate').datepicker();
                 
-				
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('#lblStraddr_s').text('地點');
+                }
+	
 				q_gt('carteam', '', 0, 0, 0, "");
 				$('#lblAccno').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear1').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
@@ -146,8 +149,8 @@
             		case 'qtxt.query.tre_jr':
             			var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
-                        	, as.length, as, 'datea,nick,straddr,product,weight,mount3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
+                                q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtComp,txtStraddr,txtProduct,txtMount,txtPrice,txtDiscount,txtMoney,txtTranno,txtTrannoq,txtCasetype,txtCaseno,txtCaseno2,txtOrdeno'
+                                , as.length, as, 'datea,nick,straddr,product,weight,mount3,discount,total2,noa,noq,casetype,caseno,caseno2,ordeno', '','');
                         	sum();
                         } else {
                             alert('無資料!');
@@ -746,7 +749,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px;">出車日期</td>
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
-					<td align="center" style="width:200px;">處理廠</td>
+					<td align="center" style="width:200px;"><a id='lblStraddr_s'>處理廠</a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
