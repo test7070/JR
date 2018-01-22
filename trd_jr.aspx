@@ -21,7 +21,7 @@
             q_tables = 's';
             var q_name = "trd";
             var q_readonly = ['txtNoa','textDiscount', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
-            var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
+            var q_readonlys = [ 'txtTranno','txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtOthercost','txtPrice','txtTotal','txtTranmoney'];
             var bbmNum = [['txtPlus', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
             var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 0,1], ['txtTotal', 10, 0,1]];
             var bbmMask = [];
@@ -71,9 +71,15 @@
 				$('#txtBtrandate').datepicker();
 				$('#txtEtrandate').datepicker();
 				
-				if(q_getPara('sys.project').toUpperCase()=='JR'){
+                if(q_getPara('sys.project').toUpperCase()=='JR'){
+                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
                     $('.isJR').show();
-                    $('#lblStraddr_jr').text('處理廠');
+                    $('#lblStraddr_jr').text('處理廠');   
+                }else if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('.isNJR').show();
+                    $('.isNV').show();
+                    $('#lblPrice_s').text('運費單價');
+                    $('#lblOthercost_s').text('售料單價');
                 }else{
                     $('.isNJR').show();  
                 }
@@ -284,8 +290,8 @@
                     case 'trd_tran':
                         if(q_getPara('sys.project').toUpperCase()=='NV'){
                             var as = _q_appendData("view_trans", "", true);
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
-                            , as.length, as, 'datea,noa,noq,carno,straddr,total,caseno,weight,custprice,total,po,product', '','');
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtMount,txtOthercost,txtPrice,txtTotal,txtCustorde,txtProduct'
+                            , as.length, as, 'datea,noa,noq,carno,straddr,total,weight,custprice,price,total,po,product', '','');
                         }else{
                             var as = _q_appendData("view_trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
@@ -546,6 +552,11 @@
                 if(q_getPara('sys.project').toUpperCase()=='JR'){
                     $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
                     $('.isJR').show();   
+                }else if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    $('.isNJR').show();
+                    $('.isNV').show();
+                    $('#lblPrice_s').text('運費單價');
+                    $('#lblOthercost_s').text('售料單價');
                 }else{
                     $('.isNJR').show();  
                 }
@@ -995,6 +1006,7 @@
 					<td align="center" style="width:200px;"><a id='lblStraddr_jr'>地點</a></td>
 					<td align="center" style="width:80px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id=''>噸數</a></td>
+					<td class='isNV' align="center" style="width:80px;display: none"><a id='lblOthercost_s'>售料單價</a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
@@ -1020,6 +1032,9 @@
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
 					</td>
+					<td  class='isNV' style="display: none">
+                    <input type="text" id="txtOthercost.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td >
 					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
 					</td>
