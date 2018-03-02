@@ -422,13 +422,13 @@
 						<input id="txtDatea" type="text" class="txt c1" />
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
                         <td><span> </span><a id="lblCno" class="lbl btn" >公司</a></td>
                         <td colspan="3">
                             <input type="text" id="txtCno" class="txt" style="float:left;width:40%;"/>
                             <input type="text" id="txtAcomp" class="txt" style="float:left;width:60%;"/>
                         </td>
-                    </tr>
+                    </tr>-->
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
@@ -453,8 +453,9 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:90px"><a>出車日期</a></td>
 					<td align="center" style="width:90px"><a>進場日期</a></td>
-					<td align="center" style="width:150px"><a>常態事業單位</a></td>
-					<td align="center" style="width:150px"><a>廢棄物</a></td>
+					<td align="center" style="width:90px"><a>公司</a></td>
+					<td align="center" style="width:100px"><a>常態事業單位</a></td>
+					<td align="center" style="width:100px"><a>廢棄物</a></td>
 					<td align="center" style="width:80px"><a>事業噸數</a></td>
 					<td align="center" style="width:90px"><a>處理廠噸數</a></td>
 					<td align="center" style="width:60px"><a>單位</a></td>
@@ -478,14 +479,19 @@
 					<td><input type="text" id="txtTime1.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtTime2.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCustno.*" style="float:left;width:40%;" />
-						<input type="text" id="txtCust.*" style="float:left;width:40%;">
+                        <input type="text" id="txtCno.*" style="float:left;width:70%;" />
+                        <input type="button" id="btnCno.*" value='.' style=" font-weight: bold;">
+                        <input type="text" id="txtAcomp.*" style="float:left;width:95%;">
+                    </td>
+					<td>
+						<input type="text" id="txtCustno.*" style="float:left;width:70%;" />
 						<input type="button" id="btnCust.*" value='.' style=" font-weight: bold;">
+						<input type="text" id="txtCust.*" style="float:left;width:95%;">
 					</td>
 					<td>
 						<input type="text" id="txtProductno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtProduct.*" style="float:left;width:40%;"/>
 						<input type="button" id="btnProduct.*" value='.' style=" font-weight: bold;"/>
+						<input type="text" id="txtProduct.*" style="float:left;width:95%;"/>
 					</td>
 					<td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtUweight.*" class="num" style="width:95%;"/></td>
@@ -508,9 +514,9 @@
                         <input type="button" id="btnCardeal.*" value='.' style=" font-weight: bold;"/>
                     </td>
 					<td>
-						<input type="text" id="txtAddrno.*" style="float:left;width:40%;"/>
-						<input type="text" id="txtAddr.*" style="float:left;width:40%;"/>
+						<input type="text" id="txtAddrno.*" style="float:left;width:70%;"/>
 						<input type="button" id="btnStraddr.*" value='.' style=" font-weight: bold;"/>
+						<input type="text" id="txtAddr.*" style="float:left;width:95%;"/>
 					</td>
 					<td align="center"><input id="chkChk1.*" type="checkbox"/></td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
