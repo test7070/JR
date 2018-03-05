@@ -87,7 +87,7 @@
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
-                    var t_where = "chk1=1 and cno='"+t_cno+"' and custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno)";
+                    var t_where = "chk1=1 and (cno='"+t_cno+"' or len('"+t_cno+"')=0) and custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno)";
                     q_box("tranvcce_jr_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranvcce_tran', "95%", "650px");
                 });
                 
