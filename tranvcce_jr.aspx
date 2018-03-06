@@ -176,8 +176,6 @@
                     return;
                 }
                 q_nowf();
-                as['cno'] = abbm2['cno'];
-                as['acomp'] = abbm2['acomp'];
                 return true;n
             }
 
