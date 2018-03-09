@@ -31,10 +31,10 @@
             aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtAddrno', 'lblAddr', 'cust', 'noa,comp', 'txtAddrno,txtAddr', 'cust_b.aspx']
+            , ['txtPort', 'lblPort', 'cust', 'noa,comp', 'txtPort,txtPort2', 'cust_b.aspx']
             , ['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
-            , ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
 
@@ -247,6 +247,8 @@
                 as['date'] = abbm2['date'];
                 as['cno'] = abbm2['cno'];
                 as['acomp'] = abbm2['acomp'];
+                as['endaddrno'] = abbm2['port'];
+                as['endaddr'] = abbm2['port2'];
                 return true;
             }
 
@@ -537,6 +539,13 @@
                         <td colspan="3">
                             <input type="text" id="txtAddrno" class="txt" style="float:left;width:40%;"/>
                             <input type="text" id="txtAddr" class="txt" style="float:left;width:60%;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblPort" class="lbl btn" >發票銷項對象</a></td>
+                        <td colspan="3">
+                            <input type="text" id="txtPort" class="txt" style="float:left;width:40%;"/>
+                            <input type="text" id="txtPort2" class="txt" style="float:left;width:60%;"/>
                         </td>
                     </tr>
 					<tr>

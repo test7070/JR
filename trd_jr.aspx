@@ -72,7 +72,6 @@
 				$('#txtEtrandate').datepicker();
 				
                 if(q_getPara('sys.project').toUpperCase()=='JR'){
-                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
                     $('.isJR').show();
                     $('#lblStraddr_jr').text('處理廠');   
                 }else if(q_getPara('sys.project').toUpperCase()=='NV'){
@@ -133,41 +132,44 @@
                         Unlock(1);
                         return;
                     }
-                	var t_noa = $.trim($('#txtNoa').val());
-                	var t_cno = $.trim($('#txtCno').val());
-                	var t_custno = $.trim($('#txtCustno').val());
-                	var t_bdate = $.trim($('#txtBdate').val());
-                	var t_edate = $.trim($('#txtEdate').val());
-                	var t_btrandate = $.trim($('#txtBtrandate').val());
-                	var t_etrandate = $.trim($('#txtEtrandate').val());
-                	var t_baddrno = $.trim($('#txtStraddrno').val());
-                	var t_eaddrno = $.trim($('#txtEndaddrno').val());
-                	//var t_carteamno = $.trim($('#cmbCarteamno').val());
-                	var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
-                	t_where += " and a.cno='"+t_cno+"' and a.custno='"+t_custno+"'";
-                	t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
-                	t_where += t_edate.length>0?" and a.datea<='"+t_edate+"'":"";
-                	t_where += t_btrandate.length>0?" and a.trandate>='"+t_btrandate+"'":"";
-                	t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
-                	t_where += t_baddrno.length>0?" and a.straddrno>='"+t_baddrno+"'":"";
-                	t_where += t_eaddrno.length>0?" and a.straddrno<='"+t_eaddrno+"'":"";
-                	/*if(t_carteamno.length>0){
-                   		t_where += " and a.carteamno='"+t_carteamno+"'";
-                   	}else{
-                   		//alert('立帳單中的資料，車隊需一致。');
-                   	}
-                	var t_po = "";
-                	if ($.trim($('#txtPo').val()).length > 0) {
-                        var tmp = $.trim($('#txtPo').val()).split(',');
-                        t_po = ' and (';
-                        for (var i in tmp)
-                        t_po += (i == 0 ? '' : ' or ') + "a.po='" + tmp[i] + "'";
-                        t_po += ')';
-                        t_where += t_po;
-                    }*/
-                	t_where = "where=^^"+t_where+"^^";
-                	q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
-                	
+                    if(q_getPara('sys.project').toUpperCase()!='JR'){
+                        var t_noa = $.trim($('#txtNoa').val());
+                        var t_cno = $.trim($('#txtCno').val());
+                        var t_custno = $.trim($('#txtCustno').val());
+                        var t_bdate = $.trim($('#txtBdate').val());
+                        var t_edate = $.trim($('#txtEdate').val());
+                        var t_btrandate = $.trim($('#txtBtrandate').val());
+                        var t_etrandate = $.trim($('#txtEtrandate').val());
+                        var t_baddrno = $.trim($('#txtStraddrno').val());
+                        var t_eaddrno = $.trim($('#txtEndaddrno').val());
+                        //var t_carteamno = $.trim($('#cmbCarteamno').val());
+                        var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
+                        t_where += " and a.cno='"+t_cno+"' and a.custno='"+t_custno+"'";
+                        t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
+                        t_where += t_edate.length>0?" and a.datea<='"+t_edate+"'":"";
+                        t_where += t_btrandate.length>0?" and a.trandate>='"+t_btrandate+"'":"";
+                        t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
+                        t_where += t_baddrno.length>0?" and a.straddrno>='"+t_baddrno+"'":"";
+                        t_where += t_eaddrno.length>0?" and a.straddrno<='"+t_eaddrno+"'":"";
+                        t_where = "where=^^"+t_where+"^^";
+                        q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
+                    }else{
+                        var t_noa = $.trim($('#txtNoa').val());
+                        var t_cno = $.trim($('#txtCno').val());
+                        var t_custno = $.trim($('#txtCustno').val());
+                        var t_bdate = $.trim($('#txtBdate').val());
+                        var t_edate = $.trim($('#txtEdate').val());
+                        var t_btrandate = $.trim($('#txtBtrandate').val());
+                        var t_etrandate = $.trim($('#txtEtrandate').val());
+                        var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
+                        t_where += " and a.cno='"+t_cno+"' and a.endaddrno='"+t_custno+"'";
+                        t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
+                        t_where += t_edate.length>0?" and a.datea<='"+t_edate+"'":"";
+                        t_where += t_btrandate.length>0?" and a.trandate>='"+t_btrandate+"'":"";
+                        t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
+                        t_where = "where=^^"+t_where+"^^";
+                        q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);    
+                    }
                 });
                 $("#btnCustchg").click(function(e) {
                 	Lock(1,{opacity:0});
@@ -510,8 +512,6 @@
             function sum() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-               	//小數 可能會有問題需注意
-               	//2017/09/13 盧小姐 未用折扣欄位 把折扣欄位改成應收總計未稅  稅額要四捨五入
                 var t_money = 0,t_mount = 0;
                 for ( i = 0; i < q_bbsCount; i++) {
                     t_money = t_money.add(q_float('txtTranmoney_' + i));
@@ -520,37 +520,20 @@
                 }
                 t_mount = t_mount.round(3);
 				var t_plusmoney = q_float('txtPlusmoney');
-				var t_minusmoney = q_float('txtMinusmoney');
-				var t_tax = q_float('txtTax'); 
-				var t_plus = q_float('txtPlus');
-				if(q_getPara('sys.project').toUpperCase()!='JR'){
-                    var t_discount = q_float('txtDiscount');
-                    var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
-                }else{
-                    var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus);
-                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
-                }
-
+                var t_minusmoney = q_float('txtMinusmoney');
+                var t_tax = q_float('txtTax'); 
+                var t_plus = q_float('txtPlus');
+                var t_discount = q_float('txtDiscount'); 
+                var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
+               
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtMount').val(FormatNumber(t_mount));   
+                $('#txtMount').val(FormatNumber(t_mount));  
                 $('#txtTax').val(round(FormatNumber((t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus))*0.05),0));
             }
             function refresh(recno) {
                 _refresh(recno);
-                var t_money = 0,t_mount = 0;
-                for ( i = 0; i < q_bbsCount; i++) {
-                    t_money = t_money.add(q_float('txtTranmoney_' + i));
-                    
-                    t_mount = t_mount.add(q_float('txtMount_' + i));
-                }
-                t_mount = t_mount.round(3);
-                var t_plusmoney = q_float('txtPlusmoney');
-                var t_minusmoney = q_float('txtMinusmoney');
-                var t_tax = q_float('txtTax'); 
-                var t_plus = q_float('txtPlus');
                 if(q_getPara('sys.project').toUpperCase()=='JR'){
-                    $('#textDiscount').val(FormatNumber(t_money.add(t_plusmoney).sub(t_minusmoney).add(t_plus)));
                     $('.isJR').show();   
                 }else if(q_getPara('sys.project').toUpperCase()=='NV'){
                     $('.isNJR').show();
@@ -875,39 +858,12 @@
 							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 							<input id="txtEdate" type="text" style="float:left; width:45%;"/>
 						</td>
-						<!--<td><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtStraddrno" type="text"  class="txt" style="float:left;width:25%;"/>
-							<input id="txtStraddr" type="text"  class="txt" style="float:left;width:20%;"/>
-							<span style="float:left; display:block; width:3%;">~</span>
-							<input id="txtEndaddrno" type="text"  class="txt" style="float:left;width:25%;"/>
-							<input id="txtEndaddr" type="text"  class="txt" style="float:left;width:20%;"/>
-						</td>-->
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<!--<tr class="trX">
-						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td colspan="3">
-							<input id="txtBtrandate" type="text" style="float:left; width:45%;"/>
-							<span style="float:left;display: block;width:3%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-							<input id="txtEtrandate" type="text" style="float:left; width:45%;"/>
-						</td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td style="display:none;"><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td colspan="3" style="display:none;"><input id="txtPo" type="text"  class="txt c1"/></td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-						<td class="tdZ"> </td>
-					</tr>-->
 					<tr class="trX">
 						<td><span> </span><a id="lblCarteam" class="lbl">車隊</a></td>
 						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
@@ -926,13 +882,6 @@
 						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
-					<!--<tr class="trY">
-						<td><span> </span><a id="lblVccano" class="lbl btn"> </a></td>
-						<td colspan="5"><input id="txtVccano" type="text" class="txt c1"/></td>
-						<td> </td>
-						<td><input type="button" id="btnVcca" class="txt c1"/></td>
-						<td class="tdZ"> </td>
-					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
@@ -942,27 +891,13 @@
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 					</tr>
-					<!--<tr>
-						<td><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtBoatno" type="text" style="float:left; width:30%;"/>
-							<input id="txtBoat" type="text" style="float:left; width:70%;"/>
-						</td>
-						<td><span> </span><a id="lblBoatname" class="lbl"> </a></td>
-						<td colspan="3">
-							<input id="txtBoatname" type="text" style="float:left; width:50%;" />
-							<input id="txtShip" type="text" style="float:left; width:50%;"/>
-						</td>
-					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td><input id="txtPlus" type="text"  class="txt c1 num"/></td>
-						<td style='display:none;' class="isJR"><span> </span><a id="lblDiscount_jr" class="lbl">應收總計(未稅)</a></td>
-						<td style='display:none;' class="isJR"><input id="textDiscount" type="text"  class="txt c1 num"/></td>
-						<td style='display:none;' class="isNJR"><span> </span><a id="lblDiscount" class="lbl">折扣</a></td>
-                        <td style='display:none;' class="isNJR"><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+                        <td><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td><input id="txtTax" type="text"  class="txt c1 num"/></td>
 					</tr>
@@ -976,6 +911,10 @@
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
 					</tr>
+					<tr class="isJR" style='display:none;'>
+                        <td><span> </span><a id="lblVolume_jr" class="lbl">折扣</a></td>
+                        <td><input id="txtVolume" type="text"  class="txt c1 num"/></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>
