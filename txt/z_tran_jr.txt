@@ -181,7 +181,8 @@ declare @tmp table(
 	cno nvarchar(50), 
 	acomp nvarchar(50), 
 	custno nvarchar(50), 
-	comp nvarchar(100), 
+	comp nvarchar(100),
+	cop nvarchar(100),
 	mount float, 
 	price float,
 	moneya float,
@@ -196,21 +197,21 @@ declare @tmp table(
 	invono nvarchar(50), 
 	memo nvarchar(MAX) 
 ) 
-insert @tmp (gno,tranno,noa,cno,acomp,custno,comp,mount,total,invono,memo) 
-select '9',a.noa,c.noa,a.cno,b.nick,a.addrno,a.addr,a.mount,a.total,a.departure,a.memo 
+insert @tmp (gno,tranno,noa,cno,acomp,custno,comp,cop,mount,total,invono,memo) 
+select '9',a.noa,c.noa,a.cno,b.nick,a.port,a.addr,a.port2,a.mount,a.total,a.departure,a.memo 
 from view_tran a 
 left join acomp b on a.cno=b.noa 
 outer apply(select noa from view_trds where a.noa=tranno group by noa) c 
-where (a.addrno between @t_bcustno and @t_ecustno) 
+where (a.port between @t_bcustno and @t_ecustno) 
 and (a.datea between @t_bdate and @t_edate) 
 
-insert @tmp(gno,datea,invono,noa,cno,acomp,custno,comp,mount,moneya,total,tax,total2,chk1,chk2,money,memo) 
-select '0',b.datea,a.invono,a.noa,a.cno,a.acomp,a.custno,a.comp,sum(a.mount),SUM(b.plusmoney-b.minusmoney),SUM(a.total)+SUM(b.plusmoney-b.minusmoney),b.tax,b.total
+insert @tmp(gno,datea,invono,noa,cno,acomp,custno,comp,cop,mount,moneya,total,tax,total2,chk1,chk2,money,memo) 
+select '0',b.datea,a.invono,a.noa,a.cno,a.acomp,a.custno,a.comp,a.cop,sum(a.mount),SUM(b.plusmoney-b.minusmoney),SUM(a.total)+SUM(b.plusmoney-b.minusmoney),b.tax,b.total
 ,case when len(isnull(a.noa,''))=0 then '' else 'V' end
 ,case when isnull(b.unpay,0)=0 and len(isnull(a.noa,''))!=0 then 'V' else '' end,b.unpay
 ,a.memo
 from @tmp a left join view_trd b on a.noa=b.noa
-group by b.datea,a.invono,a.noa,a.cno,a.acomp,a.custno,a.comp,a.memo,b.discount,b.tax,b.total,b.unpay
+group by b.datea,a.invono,a.noa,a.cno,a.acomp,a.custno,a.comp,a.cop,a.memo,b.discount,b.tax,b.total,b.unpay
 
 delete @tmp where gno='9'
 
@@ -257,6 +258,7 @@ declare @tmp table(
 	vccano nvarchar(50),
 	noa nvarchar(50),
 	custno nvarchar(50),
+	cop nvarchar(50),
 	trandate nvarchar(10),
 	straddrno nvarchar(50),
 	straddr nvarchar(100),
@@ -272,10 +274,10 @@ declare @tmp table(
 )
 --明細
 insert @tmp 
-select '9',isnull(a.cno,''),a.datea,isnull(a.departure,''),a.noa,isnull(a.addrno,''),b.trandate,b.straddrno,b.straddr,b.uccno,b.product,b.weight,b.po,b.price,b.total,a.worker,b.carno,b.memo
+select '9',isnull(a.cno,''),a.datea,isnull(a.departure,''),a.noa,isnull(a.port,''),b.nick,b.trandate,b.straddrno,b.straddr,b.uccno,b.product,b.weight,b.po,b.price,b.total,a.worker,b.carno,b.memo
 from view_tran a left join view_trans b on a.noa=b.noa
 where (left(a.datea,6) between @t_bmon and @t_emon)
-and (a.addrno between @t_bcustno and @t_ecustno)
+and (a.port between @t_bcustno and @t_ecustno)
 and (isnull(a.departure,'') between @t_binvono and @t_einvono)
 
 --加項
@@ -298,11 +300,13 @@ declare @result table(
 	page int,
 	cno nvarchar(50),
 	acomp nvarchar(100),
+	cap nvarchar(100),
 	vccano nvarchar(50),
 	tel nvarchar(50),
 	fax nvarchar(50),
 	custno nvarchar(50),
 	comp nvarchar(50),
+	cop nvarchar(50),
 	serial nvarchar(50),
 	ctel nvarchar(50),--客戶電話
 	cfax nvarchar(50),--客戶傳真
@@ -321,13 +325,15 @@ declare @result table(
 	carno nvarchar(50),
 	memo nvarchar(max)
 )
-insert @result(gno,cno,acomp,vccano,custno,comp,trandate,straddrno,straddr,uccno,product,weight,po,price,total,carno,memo)
-select '1',cno,b.nick,vccano,a.custno,c.nick,trandate,straddrno,straddr,uccno,product,sum(weight),po,price,sum(total),carno,a.memo
+insert @result(gno,cno,acomp,cap,vccano,custno,comp,cop,trandate,straddrno,straddr,uccno,product,weight,po,price,total,carno,memo)
+select '1',cno,b.nick,e.nick,vccano,a.custno,c.nick,a.cop,trandate,straddrno,straddr,uccno,product,sum(weight),po,price,sum(total),a.carno,a.memo
 from @tmp a
 left join acomp b on a.cno=b.noa
 left join cust c on a.custno=c.noa
+left join car2 d on a.carno=d.noa
+left join cardeal e on d.cardealno=e.noa
 where gno='9'
-group by cno,b.nick,vccano,a.custno,c.nick,trandate,straddrno,straddr,uccno,product,po,price,carno,a.memo
+group by cno,b.nick,e.nick,vccano,a.custno,c.nick,a.cop,trandate,straddrno,straddr,uccno,product,po,price,a.carno,a.memo
 
 insert @result(gno,cno,acomp,vccano,custno,comp,trandate,straddrno,straddr,uccno,product,weight,po,price,total)
 select '2',cno,b.nick,vccano,a.custno,c.nick,trandate,straddrno,straddr,uccno,product,weight,po,price,total
