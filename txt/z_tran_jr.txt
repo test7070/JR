@@ -898,9 +898,10 @@ declare @tmp table(
 	indate nvarchar(10),
 	bank nvarchar(100)
 )
+-- 郭小姐 後面付款到期日要手動跟立帳作業到期日同步
 insert @tmp
 select '0',0,a.mon,a.noa,c.noa,a.cno,a.acomp,a.tggno,a.nick,a.payc,a.memo,b.invono
-,a.money,a.tax,a.total,c.checkno,c.indate,c.bank
+,a.money,a.tax,a.total,c.checkno,a.indate,c.bank
 from payb a
 outer apply(select invono from paybs where noa=a.noa group by noa,invono)b
 outer apply(select * from pays where rc2no=a.noa)c
