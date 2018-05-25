@@ -63,6 +63,9 @@
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbCarteamno", t_carteam);
+                if(q_getPara('sys.project').toUpperCase()=='NV'){
+                    bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 3,1], ['txtTotal', 10, 0,1]];
+                }
                 
                 $('#lblCust').text('客戶');
                 
